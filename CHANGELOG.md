@@ -1,3 +1,7 @@
+## 1.0.1 - 5 May 2025
+
+* The repository link to github was updated
+
 ## 1.0.0 - 5 May 2025
 
 * Introduced:
