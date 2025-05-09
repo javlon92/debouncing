@@ -10,7 +10,7 @@ A lightweight Flutter package providing a simple [debounce, throttle, back off] 
 ## Features
 
 - Simple and easy-to-use functionality with (`ThrottleMixins`, `DebounceMixins`). Mixins help you to close `Throttle` and `Debounce` automatically, and it's `not necessary` to close it manually.
-- When using `debounceTransform` in `Bloc`, you can now cancel the previous event using `ResettableEvent`.
+- When using `debounceTransform` or `throttleTransform` in `Bloc`, you can now cancel the previous event using `ResettableEvent`.
 - Configurable [`duration`, `leading`, `trailing`] in `Debounce` and `Throttle`.
 - Configurable [`percentageRandomization`, `initialDelay`, `maxDelay`, `maxAttempts`, `retryIf`] in `BackOff`.
 - Ideal for Flutter applications to handle rapid user inputs (e.g., search fields, button clicks).
@@ -45,15 +45,19 @@ sealed class MyEvent {
 
 // final class OnSearchEvent extends MyEvent { 👉 // ⚠️ you can write without `ResettableEvent`
 final class OnSearchEvent extends MyEvent with ResettableEvent { 👉 // ⚠️ ... with ResettableEvent, ... extends ResettableEvent, ... implements ResettableEvent
-@override
-final bool resetOnlyPreviousEvent;
-final String text;
+  @override
+  final bool resetOnlyPreviousEvent;
+  final String text;
 
-const OnSearchEvent({required this.text, this.resetOnlyPreviousEvent = false});
+  const OnSearchEvent({required this.text, this.resetOnlyPreviousEvent = false});
 }
 
-final class OnScrollEvent extends MyEvent {
-  const OnScrollEvent();
+// final class OnScrollEvent extends MyEvent { 👉 // ⚠️ you can write without `ResettableEvent`
+final class OnScrollEvent extends MyEvent with ResettableEvent { 👉 // ⚠️ ... with ResettableEvent, ... extends ResettableEvent, ... implements ResettableEvent
+  @override
+  final bool resetOnlyPreviousEvent;
+
+  const OnScrollEvent({this.resetOnlyPreviousEvent = false});
 }
 
 ----------------------------------------------------------------------------------------------------
@@ -69,7 +73,11 @@ abstract class MyEvent with _$MyEvent {
     @Default(false) bool resetOnlyPreviousEvent,
   }) = OnSearchEvent;
 
-  const factory MyEvent.onScroll() = OnScrollEvent;
+  // const factory MyEvent.onScroll({ 👉 // ⚠️ you can write without `@Implements<ResettableEvent>()`
+  @Implements<ResettableEvent>()
+  const factory MyEvent.onScroll({
+    @Default(false) bool resetOnlyPreviousEvent,
+  }) = OnScrollEvent;
 }
 
 ----------------------------------------------------------------------------------------------------

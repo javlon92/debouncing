@@ -138,8 +138,7 @@ class Debounce {
     // If the "call immediately" leading = true, and we haven't called the callback yet, we execute it immediately.
     if (leading && !_hasCalledLeading) {
       callback();
-      _hasCalledLeading =
-          true; // That leading has already been called — do not call it again until the end of the loop.
+      _hasCalledLeading = true; // That leading has already been called — do not call it again until the end of the loop
       _skipTrailing = true; // Setting the flag to not perform trailing later.
     } else if (trailing) {
       _skipTrailing = false; // If leading is not performed, trailing is allowed.
