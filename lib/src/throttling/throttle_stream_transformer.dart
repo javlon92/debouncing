@@ -86,6 +86,12 @@ class ThrottleStreamTransformer<T> extends StreamTransformerBase<T, T> {
       onListen: () {
         subscription = stream.listen(
           (event) {
+            /// If the event is marked as resetting only, we do not process it
+            if (event is ResettableEvent && event.resetOnlyPreviousEvent) {
+              if (_throttle.isTimerActive) _throttle.reset();
+              return;
+            }
+
             _throttle.call(() {
               if (!controller.isClosed) {
                 controller.add(event);

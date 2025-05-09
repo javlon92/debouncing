@@ -1,6 +1,6 @@
 name: debouncing
 description: "A lightweight Flutter package providing a simple [debounce, throttle, back off] utility to function calls, ideal for optimizing performance in event-driven application."
-version: 1.0.1
+version: 1.1.0
 homepage: https://github.com/javlon92/debouncing
 repository: https://github.com/javlon92/debouncing
 issue_tracker: https://github.com/javlon92/debouncing/issues
@@ -23,6 +23,6 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  test: ^1.25.15
+  fake_async: ^1.3.1
   flutter_lints: ^4.0.0
