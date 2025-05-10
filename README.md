@@ -1,5 +1,8 @@
 # Debounce, Throttle, BackOff
 
+[![Pub](https://img.shields.io/pub/v/debouncing.svg)](https://pub.dev/packages/debouncing)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 A lightweight Flutter package providing a simple [debounce, throttle, back off] utility to function calls, ideal for optimizing performance in event-driven application.
 
 ## Demo
